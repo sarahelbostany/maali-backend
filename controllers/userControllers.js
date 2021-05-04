@@ -8,7 +8,8 @@ userControllers.create = async (req, res) => {
         const user = await models.user.create({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            budget: req.body.budget
         })
         res.json({user})
     } catch (error) {
@@ -41,6 +42,7 @@ userControllers.login = async(req, res) => {
       const user = await models.user.findOne({
         where: { id: req.headers.authorization }
       })
+      console.log(user)
 
       if (user) {
         res.json({ user, message: 'user found' })
@@ -52,6 +54,9 @@ userControllers.login = async(req, res) => {
       res.status(400).json({ error: error.message })
     }
   }
+
+
+
 
 
 

@@ -1,3 +1,4 @@
+const { request } = require('express')
 const models = require('../models')
 
 const expenseControllers = {}
@@ -16,6 +17,11 @@ expenseControllers.create = async (req, res) => {
         },
        )
         const newExpense = await user.addExpense(expense)
+        await models.user.update({
+            total: user.total - req.body.amount }, {
+                where: {id: user.id }
+            })
+
         await newExpense.reload()
 
         res.json({newExpense})
@@ -66,28 +72,15 @@ expenseControllers.destroy = async (req, res) => {
 
 
 expenseControllers.index = async (req, res) => {
+    console.log('backend', req.params.id)
     try {
 
-        const user = await models.user.findOne ({
-            where: {id: req.body.userId}
+        const expenses = await models.expense.findAll ({
+            where: {userId: req.params.id}
         })
 
-        let expenses = await user.getExpenses()
 
         res.json((expenses))
-    }catch (error) {
-        console.log(error);
-    }
-}
-
-expenseControllers.find = async (req, res) => {
-    try {
-        const expense = await models.expense.findOne ({
-            where: {
-                id: req.params.id
-            }
-        })
-        res.json({expense})
     }catch (error) {
         console.log(error);
     }

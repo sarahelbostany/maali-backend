@@ -8,8 +8,7 @@ expenseRoutes.put('/:id', expenseControllers.update)
 
 expenseRoutes.delete('/:id', expenseControllers.destroy)
 
-expenseRoutes.get('/allexpenses', expenseControllers.index)
-expenseRoutes.get('/allexpenses/:id', expenseControllers.find)
+expenseRoutes.get('/allexpenses/:id', expenseControllers.index)
 
 
 module.exports = expenseRoutes
