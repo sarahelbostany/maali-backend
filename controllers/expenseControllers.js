@@ -12,8 +12,8 @@ expenseControllers.create = async (req, res) => {
         })
         const expense = await models.expense.create ({
             expense: req.body.expense,
-                amount:req.body.amount,
-                category: req.body.category,
+            amount:req.body.amount,
+            category: req.body.category,
         },
        )
         const newExpense = await user.addExpense(expense)
@@ -24,7 +24,7 @@ expenseControllers.create = async (req, res) => {
 
         await newExpense.reload()
 
-        res.json({newExpense})
+        res.json({expense})
 
 
 
