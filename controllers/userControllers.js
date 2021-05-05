@@ -4,6 +4,7 @@ const userControllers = {}
 
 //signup
 userControllers.create = async (req, res) => {
+  console.log(req.body)
     try {
         const user = await models.user.create({
             name: req.body.name,

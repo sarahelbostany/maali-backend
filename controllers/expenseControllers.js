@@ -16,6 +16,7 @@ expenseControllers.create = async (req, res) => {
             category: req.body.category,
         },
        )
+       console.log(typeof user.total, typeof req.body.amount)
         const newExpense = await user.addExpense(expense)
         await models.user.update({
             total: user.total - req.body.amount }, {
